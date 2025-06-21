@@ -33,7 +33,6 @@ export default function RegisterPage() {
     setError("")
     setLoading(true)
     
-    // Basic validation
     if (formData.password !== formData.confirm_password) {
       setError("Password dan konfirmasi password tidak cocok")
       setLoading(false)
@@ -41,11 +40,9 @@ export default function RegisterPage() {
     }
     
     try {
-      // Calculate horoscope and zodiac based on birthday
       const horoscope = getHoroscope(formData.birthday)
       const zodiac = getZodiac(formData.birthday)
       
-      // Create request payload
       const payload = {
         username: formData.username.trim(),
         email: formData.email.trim(),
@@ -61,11 +58,9 @@ export default function RegisterPage() {
       
       console.log('Registration payload with horoscope and zodiac:', payload)
       
-      // For testing - use mock success if API is not available
       if (process.env.NODE_ENV === 'development') {
         console.log('Registration payload:', payload)
         
-        // Simulate successful registration
         setShowSuccess(true)
         localStorage.setItem("registered_username", payload.username)
         localStorage.setItem("registered_password", payload.password)
@@ -76,7 +71,6 @@ export default function RegisterPage() {
         return
       }
       
-      // Real API call
       const res = await fetch("http://techtest.youapp.ai/api/register", {
         method: "POST",
         headers: {
@@ -85,20 +79,16 @@ export default function RegisterPage() {
         body: JSON.stringify(payload)
       })
       
-      // Handle response
       if (!res.ok) {
         const data = await res.json()
         throw new Error(data.message || "Registrasi gagal")
       }
       
-      // Show success popup
       setShowSuccess(true)
       
-      // Store user credentials for login
       localStorage.setItem("registered_username", payload.username)
       localStorage.setItem("registered_password", payload.password)
       
-      // Redirect after 2 seconds
       setTimeout(() => {
         window.location.href = "/login"
       }, 2000)
@@ -109,7 +99,6 @@ export default function RegisterPage() {
     }
   }
   
-  // Preview horoscope and zodiac based on selected birthday
   const previewHoroscopeZodiac = () => {
     if (!formData.birthday) return null;
     
@@ -125,7 +114,6 @@ export default function RegisterPage() {
   
   return (
     <main className="flex flex-col items-center justify-center min-h-screen px-4 py-8 bg-gray-50">
-      {/* Success Popup */}
       {showSuccess && (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
           <div className="bg-white p-6 rounded-lg shadow-xl max-w-md w-full">

@@ -1,6 +1,5 @@
 "use client"
 
-// Define profile interface
 interface Profile {
   full_name: string;
   username: string;
@@ -12,7 +11,6 @@ interface Profile {
   weight: number;
 }
 
-// Mock profile data for the dummy token
 const mockProfile: Profile = {
   full_name: "Michael Scott",
   username: "michael.scott",
@@ -25,15 +23,12 @@ const mockProfile: Profile = {
 }
 
 export default function ProfilePage() {
-  // Handle logout
   function handleLogout() {
     localStorage.removeItem("token");
     window.location.href = "/login";
   }
   
-  // This function will be called from useEffect
   function initializeProfile() {
-    // Elements
     const loadingElement = document.getElementById('loading-section');
     const errorElement = document.getElementById('error-section');
     const profileElement = document.getElementById('profile-section');
@@ -44,16 +39,13 @@ export default function ProfilePage() {
       return;
     }
     
-    // Show loading initially
     loadingElement.classList.remove('hidden');
     errorElement.classList.add('hidden');
     profileElement.classList.add('hidden');
     
-    // Check for token in localStorage
     const token = localStorage.getItem("token");
     
     if (!token) {
-      // No token, show error and redirect after a delay
       loadingElement.classList.add('hidden');
       errorElement.classList.remove('hidden');
       errorMessageElement.textContent = "Unauthorized";
@@ -64,17 +56,15 @@ export default function ProfilePage() {
       return;
     }
     
-    // If using our dummy token, use mock data
     if (token === "dummy-token-for-testing") {
       setTimeout(() => {
         displayProfile(mockProfile);
         loadingElement.classList.add('hidden');
         profileElement.classList.remove('hidden');
-      }, 500); // Simulate API delay
+      }, 500);
       return;
     }
     
-    // Otherwise try to fetch from API
     fetch("http://techtest.youapp.ai/api/profile", {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -100,7 +90,6 @@ export default function ProfilePage() {
     });
   }
   
-  // Function to display profile data
   function displayProfile(profile: Profile) {
     const nameElement = document.getElementById('profile-name');
     const usernameElement = document.getElementById('profile-username');
@@ -121,20 +110,16 @@ export default function ProfilePage() {
     if (weightElement) weightElement.textContent = `${profile.weight} kg`;
   }
   
-  // Use client-side effect to initialize the page
   if (typeof window !== 'undefined') {
-    // Run on client-side only
     setTimeout(initializeProfile, 0);
   }
   
   return (
     <>
-      {/* Loading Section */}
       <main id="loading-section" className="flex h-screen items-center justify-center">
         Loading...
       </main>
       
-      {/* Error Section */}
       <main id="error-section" className="hidden flex flex-col h-screen items-center justify-center text-red-500">
         <p id="error-message" className="mb-4"></p>
         <button 
@@ -145,7 +130,6 @@ export default function ProfilePage() {
         </button>
       </main>
       
-      {/* Profile Section */}
       <main id="profile-section" className="hidden flex flex-col items-center justify-center p-4">
         <h1 className="text-xl font-bold mb-4">Profile</h1>
         <div className="w-full max-w-md bg-gray-100 rounded p-4 space-y-2">

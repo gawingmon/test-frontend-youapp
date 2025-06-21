@@ -1,8 +1,5 @@
-/**
- * Get horoscope sign based on birth date
- * @param dateString - Date string in YYYY-MM-DD format
- * @returns Horoscope sign with symbol
- */
+// zodiak barat dari tanggal lahir (format: YYYY-MM-DD)
+
 export function getHoroscope(dateString: string): string {
   const date = new Date(dateString);
   const month = date.getMonth() + 1; // getMonth() returns 0-11
@@ -35,22 +32,17 @@ export function getHoroscope(dateString: string): string {
   }
 }
 
-/**
- * Get Chinese zodiac sign based on birth year
- * @param dateString - Date string in YYYY-MM-DD format
- * @returns Chinese zodiac sign
- */
+// Shio berdasarkan tahun lahir (format: YYYY-MM-DD )
+
 export function getZodiac(dateString: string): string {
   const date = new Date(dateString);
   const year = date.getFullYear();
-  
-  // Chinese zodiac follows a 12-year cycle
+
   const zodiacSigns = [
     "Monkey", "Rooster", "Dog", "Pig", "Rat", "Ox",
     "Tiger", "Rabbit", "Dragon", "Snake", "Horse", "Goat"
   ];
-  
-  // Calculate the zodiac sign based on the year
+
   const index = (year - 4) % 12;
   return zodiacSigns[index];
 }

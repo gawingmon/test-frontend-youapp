@@ -4,7 +4,6 @@ import { useEffect } from "react"
 import Link from "next/link"
 
 export default function LoginPage() {
-  // Initialize the page with any stored credentials
   useEffect(() => {
     const registeredUsername = localStorage.getItem('registered_username');
     const registeredPassword = localStorage.getItem('registered_password');
@@ -23,14 +22,12 @@ export default function LoginPage() {
       }
     }
     
-    // Clear stored credentials after using them
     if (registeredUsername || registeredPassword) {
       localStorage.removeItem('registered_username');
       localStorage.removeItem('registered_password');
     }
   }, []);
 
-  // Define handleLogin function in the component scope
   function handleLogin() {
     const username = document.getElementById('username') as HTMLInputElement;
     const password = document.getElementById('password') as HTMLInputElement;
@@ -41,9 +38,7 @@ export default function LoginPage() {
     errorElement.classList.add('hidden');
     errorElement.textContent = '';
     
-    // Check for the specific credentials
     if (username.value === 'michael.scott@youapp.ai' && password.value === '12345678') {
-      // Hardcoded success for the specified credentials
       localStorage.setItem('token', 'dummy-token-for-testing');
       showSuccessPopup();
       return;
@@ -84,12 +79,11 @@ export default function LoginPage() {
     if (successPopup) {
       successPopup.classList.remove('hidden');
       
-      // Redirect after 2 seconds
       setTimeout(() => {
         window.location.href = '/profile';
       }, 2000);
     } else {
-      // Fallback if popup element not found
+    
       alert('Login sukses!');
       window.location.href = '/profile';
     }
