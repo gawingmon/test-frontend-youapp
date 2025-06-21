@@ -1,6 +1,4 @@
 {
-    "eslint": {
-      "ignoreDuringBuilds": true
-    }
-  }
-  
+  "version": 2,
+  "framework": "nextjs"
+} 
