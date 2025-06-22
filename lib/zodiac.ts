@@ -1,8 +1,6 @@
-// zodiak barat dari tanggal lahir (format: YYYY-MM-DD)
-
 export function getHoroscope(dateString: string): string {
   const date = new Date(dateString);
-  const month = date.getMonth() + 1; // getMonth() returns 0-11
+  const month = date.getMonth() + 1; 
   const day = date.getDate();
 
   if ((month === 3 && day >= 21) || (month === 4 && day <= 19)) {
@@ -32,7 +30,7 @@ export function getHoroscope(dateString: string): string {
   }
 }
 
-// Shio berdasarkan tahun lahir (format: YYYY-MM-DD )
+
 
 export function getZodiac(dateString: string): string {
   const date = new Date(dateString);
