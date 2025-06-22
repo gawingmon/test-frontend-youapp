@@ -26,7 +26,8 @@ This project is a frontend coding test for YouApp, built using **Next.js 13 (App
 
 You can use the default test account:
 
-Email: michael.scott@youapp.ai
+Email: johndoe123@youapp.ai
+Usernam : johndoe123
 Password: 12345678
 
 

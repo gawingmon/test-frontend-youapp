@@ -55,9 +55,14 @@ export default function LoginPage() {
     errorElement.classList.add('hidden');
     errorElement.textContent = '';
     
-    if (formData.username === 'michael.scott@youapp.ai' && formData.password === '12345678') {
+    if ((formData.username === 'johndoe123@youapp.ai' || formData.username === 'johndoe123') && formData.password === '12345678') {
       localStorage.setItem('token', 'dummy-token-for-testing');
       showSuccessPopup();
+      return;
+    } else if (formData.username === 'johndoe123@youapp.ai' || formData.username === 'johndoe123') {
+      setIsLoading(false);
+      errorElement.textContent = 'Invalid email or password. Please try again.';
+      errorElement.classList.remove('hidden');
       return;
     }
     
@@ -74,7 +79,7 @@ export default function LoginPage() {
       .then(({ data, isOk }) => {
         setIsLoading(false)
         if (!isOk) {
-          errorElement.textContent = data.message || 'Login gagal';
+          errorElement.textContent = 'Invalid email or password. Please try again.';
           errorElement.classList.remove('hidden');
           return;
         }
@@ -84,12 +89,12 @@ export default function LoginPage() {
       })
       .catch(() => {
         setIsLoading(false)
-        errorElement.textContent = 'Terjadi kesalahan. Coba lagi.';
+        errorElement.textContent = 'Invalid email or password. Please try again.';
         errorElement.classList.remove('hidden');
       });
     } catch {
       setIsLoading(false)
-      errorElement.textContent = 'Terjadi kesalahan. Coba lagi.';
+      errorElement.textContent = 'Invalid email or password. Please try again.';
       errorElement.classList.remove('hidden');
     }
   }
@@ -170,7 +175,7 @@ export default function LoginPage() {
                 name="username"
                 value={formData.username}
                 onChange={handleChange}
-                placeholder="Johndoe@gmail.com"
+                placeholder="Enter Username/Email"
                 className="w-full px-5 py-4 bg-transparent text-white placeholder-gray-400 focus:outline-none text-center"
                 required
               />
@@ -184,7 +189,7 @@ export default function LoginPage() {
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
-                placeholder="••••••••"
+                placeholder="Enter Password"
                 className="flex-1 px-5 py-4 bg-transparent text-white placeholder-gray-400 focus:outline-none text-center"
                 required
               />
